@@ -5,6 +5,31 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 class MainBox extends React.Component {
 
 
+  state = {
+    currentPage: <Profile />
+  }
+
+  menuClick = (e) => {
+    console.log(e.target.id);
+
+    this.setState({
+      currentPage: e.target.id
+    })
+  }
+
+  detailsToDisplay = () => {
+    switch (this.state.currentPage) {
+      case "photo":
+        return <Photos />;
+      case "cocktail":
+        return <Cocktails />;
+      case "pokemon":
+        return <Pokemon />;
+      default:
+        return <Profile />;
+    }
+  }
+
   render() {
 
     /*
@@ -13,12 +38,10 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
-
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar menuClick={this.menuClick} />
+        {this.detailsToDisplay()}
       </div>
     )
   }
